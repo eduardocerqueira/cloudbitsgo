@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>7. Build &#8212; cloudbitsgo 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="6. Setup development environment" href="development.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="development.html" title="6. Setup development environment"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">cloudbitsgo 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="build">
+<span id="id1"></span><h1>7. Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="from-your-local-machine">
+<h2>7.1. From your local machine<a class="headerlink" href="#from-your-local-machine" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="highlight-default"><div class="highlight"><pre><span></span>$ cd cloudbitsgo
+$ make
+
+Usage: make &lt;target&gt; where &lt;target&gt; is one of
+
+clean     clean temp files from local workspace
+doc       generate sphinx documentation and man pages
+test      run unit tests locally
+tarball   generate tarball of project
+rpm       build source codes and generate rpm file
+srpm      generate SRPM file
+all       clean test doc rpm
+flake8    check Python style based on flake8
+
+
+$ make rpm
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="copr">
+<h2>7.2. Copr<a class="headerlink" href="#copr" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Before doing any release, make sure that you have account on both sites and also make sure that you could
+access to your fedorapeople space <a class="footnote-reference" href="#id5" id="id2">[1]</a> and have enough permissions <a class="footnote-reference" href="#id6" id="id3">[2]</a> to build <cite>cloudbitsgo</cite> in <cite>Copr</cite>.</p>
+<blockquote>
+<div><blockquote>
+<div>$ make srpm</div></blockquote>
+<ol class="arabic simple">
+<li>copy rpmbuild/SRPMS/cloudbitsgo-0.0.1-1.src.rpm to cloudbitsgo/copr</li>
+<li>push cloudbitsgo/copr to github</li>
+</ol>
+</div></blockquote>
+<p class="last"><cite>copr-cli</cite> will be used, installed by <cite>sudo yum/dnf install copr-cli</cite> and configure it. <a class="footnote-reference" href="#id7" id="id4">[3]</a></p>
+</div>
+</div></blockquote>
+<p>Request as <cite>Builder</cite> for projects <cite>cloudbitsgo</cite>, wait until admin approves.</p>
+<p>$ copr-cli build cloudbitsgo <a class="reference external" href="https://github.com/eduardocerqueira/cloudbitsgo/raw/master/copr/cloudbitsgo-0.0.1-1.src.rpm">https://github.com/eduardocerqueira/cloudbitsgo/raw/master/copr/cloudbitsgo-0.0.1-1.src.rpm</a></p>
+<p>Go and grab a cup of tea or coffee, the release build will be come out soon</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># tag based builds: `https://copr.fedorainfracloud.org/coprs/eduardocerqueira/cloudbitsgo/builds/`</span>
+</pre></div>
+</div>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><a class="reference external" href="https://fedorahosted.org/copr/wiki/HowToEnableRepo">https://fedorahosted.org/copr/wiki/HowToEnableRepo</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td><a class="reference external" href="http://fedoraproject.org/wiki/Infrastructure/fedorapeople.org#Accessing_Your_fedorapeople.org_Space">http://fedoraproject.org/wiki/Infrastructure/fedorapeople.org#Accessing_Your_fedorapeople.org_Space</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[3]</a></td><td><a class="reference external" href="https://fedorahosted.org/copr/wiki/UserDocs#CanIgiveaccesstomyrepotomyteammate">https://fedorahosted.org/copr/wiki/UserDocs#CanIgiveaccesstomyrepotomyteammate</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="https://copr.fedoraproject.org/api/">https://copr.fedoraproject.org/api/</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">7. Build</a><ul>
+<li><a class="reference internal" href="#from-your-local-machine">7.1. From your local machine</a></li>
+<li><a class="reference internal" href="#copr">7.2. Copr</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="development.html"
+                        title="previous chapter">6. Setup development environment</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/build.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="development.html" title="6. Setup development environment"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">cloudbitsgo 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2014-2015, cloudbitsgo Devel Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.
+    </div>
+  </body>
+</html>

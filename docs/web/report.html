@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3. Report &#8212; cloudbitsgo 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. Install" href="install.html" />
+    <link rel="prev" title="2. Examples" href="examples.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="install.html" title="4. Install"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="2. Examples"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">cloudbitsgo 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="report">
+<span id="id1"></span><h1>3. Report<a class="headerlink" href="#report" title="Permalink to this headline">¶</a></h1>
+<p>Report is a txt file generated after every execution. The file is created at current path where
+<strong>cloudbitsgo</strong> is executed and if executed more than once the data for the second execution will be appended at
+the end of file and separated by an asterisk line.</p>
+<p>If <em>errors</em> during a migration the bottom section of report that list all files will add a error section at the end of report and the section name will be
+LIST <strong>ERROR</strong> FILES.</p>
+<p>example of a report.txt file that had 2 executions:</p>
+<p>[<a class="reference external" href="mailto:ecerquei&#37;&#52;&#48;dev">ecerquei<span>&#64;</span>dev</a> cloudbitsgo]$ cat report.txt:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">----------------------------------------</span>
+<span class="n">HOSTNAME</span><span class="p">:</span> <span class="n">dev</span>
+<span class="o">----------------------------------------</span>
+<span class="n">START</span> <span class="n">TIME</span><span class="p">:</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">14</span> <span class="mi">21</span><span class="p">:</span><span class="mi">39</span><span class="p">:</span><span class="mf">20.575761</span>
+<span class="n">END</span> <span class="n">TIME</span><span class="p">:</span>   <span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">14</span> <span class="mi">21</span><span class="p">:</span><span class="mi">39</span><span class="p">:</span><span class="mf">20.599414</span>
+<span class="n">DURATION</span><span class="p">:</span>   <span class="mi">0</span><span class="n">h</span><span class="p">:</span><span class="mi">0</span><span class="n">m</span><span class="p">:</span><span class="mi">0</span><span class="n">s</span>
+<span class="o">----------------------------------------</span>
+<span class="n">SRC</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span>
+<span class="n">DST</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app4</span>
+<span class="n">SRC</span> <span class="n">DIR</span> <span class="n">SIZE</span><span class="p">:</span>   <span class="mi">14</span><span class="n">MB</span>
+<span class="n">TOTAL</span> <span class="n">OF</span> <span class="n">FILES</span><span class="p">:</span> <span class="mi">33</span>
+<span class="o">----------------------------------------</span>
+<span class="n">SUCCESS</span><span class="p">:</span> <span class="mi">33</span>
+<span class="n">LINKED</span><span class="p">:</span>  <span class="mi">33</span> <span class="p">(</span><span class="n">nothing</span> <span class="n">to</span> <span class="n">do</span><span class="p">)</span>
+<span class="n">ERROR</span><span class="p">:</span>   <span class="mi">0</span>
+<span class="o">----------------------------------------</span>
+<span class="n">LIST</span> <span class="n">SUCCESS</span> <span class="n">FILES</span>
+<span class="o">----------------------------------------</span>
+<span class="mi">1</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">flaskapp</span><span class="o">.</span><span class="n">pyc</span>
+<span class="mi">2</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">py</span>
+<span class="mi">3</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">flaskapp</span><span class="o">.</span><span class="n">cfg</span>
+<span class="mi">4</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">setup</span><span class="o">.</span><span class="n">py</span>
+<span class="mi">5</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+<span class="mi">6</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">flaskapp</span><span class="o">.</span><span class="n">py</span>
+<span class="mi">7</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">README</span><span class="o">.</span><span class="n">md</span>
+<span class="mi">8</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">doc</span><span class="o">/</span><span class="n">tips</span><span class="o">.</span><span class="n">txt</span>
+<span class="mi">9</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">css</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">css</span>
+<span class="mi">10</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">audio</span><span class="o">/</span><span class="n">lionsleep</span><span class="o">.</span><span class="n">ogg</span>
+<span class="mi">11</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">audio</span><span class="o">/</span><span class="n">elsa</span><span class="o">.</span><span class="n">ogg</span>
+<span class="mi">12</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">audio</span><span class="o">/</span><span class="n">mickey</span><span class="o">.</span><span class="n">ogg</span>
+<span class="mi">13</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">audio</span><span class="o">/</span><span class="n">daniel</span><span class="o">.</span><span class="n">ogg</span>
+<span class="mi">14</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">audio</span><span class="o">/</span><span class="n">minions</span><span class="o">.</span><span class="n">ogg</span>
+<span class="mi">15</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">audio</span><span class="o">/</span><span class="n">elmo</span><span class="o">.</span><span class="n">ogg</span>
+<span class="mi">16</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">audio</span><span class="o">/</span><span class="n">barney</span><span class="o">.</span><span class="n">ogg</span>
+<span class="mi">17</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">img</span><span class="o">/</span><span class="n">minions</span><span class="o">.</span><span class="n">jpg</span>
+<span class="mi">18</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">img</span><span class="o">/</span><span class="n">elmo</span><span class="o">.</span><span class="n">jpg</span>
+<span class="mi">19</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">img</span><span class="o">/</span><span class="n">close</span><span class="o">.</span><span class="n">png</span>
+<span class="mi">20</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">img</span><span class="o">/</span><span class="n">barney</span><span class="o">.</span><span class="n">jpg</span>
+<span class="mi">21</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">img</span><span class="o">/</span><span class="n">lionsleep</span><span class="o">.</span><span class="n">jpg</span>
+<span class="mi">22</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">img</span><span class="o">/</span><span class="n">mickey</span><span class="o">.</span><span class="n">jpg</span>
+<span class="mi">23</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">img</span><span class="o">/</span><span class="n">lion</span><span class="o">-</span><span class="n">sleeps</span><span class="o">.</span><span class="n">png</span>
+<span class="mi">24</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">img</span><span class="o">/</span><span class="n">galinha</span><span class="o">.</span><span class="n">jpg</span>
+<span class="mi">25</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">img</span><span class="o">/</span><span class="n">elsa</span><span class="o">.</span><span class="n">jpg</span>
+<span class="mi">26</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">static</span><span class="o">/</span><span class="n">img</span><span class="o">/</span><span class="n">daniel</span><span class="o">.</span><span class="n">jpg</span>
+<span class="mi">27</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">templates</span><span class="o">/</span><span class="n">elsa</span><span class="o">.</span><span class="n">html</span>
+<span class="mi">28</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">templates</span><span class="o">/</span><span class="n">daniel</span><span class="o">.</span><span class="n">html</span>
+<span class="mi">29</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">templates</span><span class="o">/</span><span class="n">mickey</span><span class="o">.</span><span class="n">html</span>
+<span class="mi">30</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">templates</span><span class="o">/</span><span class="n">minions</span><span class="o">.</span><span class="n">html</span>
+<span class="mi">31</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">templates</span><span class="o">/</span><span class="n">barney</span><span class="o">.</span><span class="n">html</span>
+<span class="mi">32</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">templates</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">html</span>
+<span class="mi">33</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ecerquei</span><span class="o">/</span><span class="n">openshift_app3</span><span class="o">/</span><span class="n">templates</span><span class="o">/</span><span class="n">elmo</span><span class="o">.</span><span class="n">html</span>
+<span class="o">----------------------------------------</span>
+<span class="o">********************************************************************************</span>
+<span class="o">----------------------------------------</span>
+<span class="n">HOSTNAME</span><span class="p">:</span> <span class="n">dev</span>
+<span class="o">----------------------------------------</span>
+<span class="n">START</span> <span class="n">TIME</span><span class="p">:</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">14</span> <span class="mi">22</span><span class="p">:</span><span class="mi">35</span><span class="p">:</span><span class="mf">40.374854</span>
+<span class="n">END</span> <span class="n">TIME</span><span class="p">:</span>   <span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">14</span> <span class="mi">22</span><span class="p">:</span><span class="mi">35</span><span class="p">:</span><span class="mf">40.389947</span>
+<span class="n">DURATION</span><span class="p">:</span>   <span class="mi">0</span><span class="n">h</span><span class="p">:</span><span class="mi">0</span><span class="n">m</span><span class="p">:</span><span class="mi">0</span><span class="n">s</span>
+<span class="o">----------------------------------------</span>
+<span class="n">SRC</span><span class="p">:</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">9</span>
+<span class="n">DST</span><span class="p">:</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="n">scripts</span>
+<span class="n">SRC</span> <span class="n">DIR</span> <span class="n">SIZE</span><span class="p">:</span>   <span class="mi">270</span><span class="n">MB</span>
+<span class="n">TOTAL</span> <span class="n">OF</span> <span class="n">FILES</span><span class="p">:</span> <span class="mi">10</span>
+<span class="o">----------------------------------------</span>
+<span class="n">SUCCESS</span><span class="p">:</span> <span class="mi">10</span>
+<span class="n">LINKED</span><span class="p">:</span>  <span class="mi">10</span> <span class="p">(</span><span class="n">nothing</span> <span class="n">to</span> <span class="n">do</span><span class="p">)</span>
+<span class="n">ERROR</span><span class="p">:</span>   <span class="mi">0</span>
+<span class="o">----------------------------------------</span>
+<span class="n">LIST</span> <span class="n">SUCCESS</span> <span class="n">FILES</span>
+<span class="o">----------------------------------------</span>
+<span class="mi">1</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="n">webapps</span><span class="o">/</span><span class="n">jenkins</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">yui</span><span class="o">/</span><span class="n">cutdown</span><span class="o">.</span><span class="n">sh</span>
+<span class="mi">2</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">version</span><span class="o">.</span><span class="n">sh</span>
+<span class="mi">3</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">tool</span><span class="o">-</span><span class="n">wrapper</span><span class="o">.</span><span class="n">sh</span>
+<span class="mi">4</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">startup</span><span class="o">.</span><span class="n">sh</span>
+<span class="mi">5</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">shutdown</span><span class="o">.</span><span class="n">sh</span>
+<span class="mi">6</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">setclasspath</span><span class="o">.</span><span class="n">sh</span>
+<span class="mi">7</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">digest</span><span class="o">.</span><span class="n">sh</span>
+<span class="mi">8</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">daemon</span><span class="o">.</span><span class="n">sh</span>
+<span class="mi">9</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">configtest</span><span class="o">.</span><span class="n">sh</span>
+<span class="mi">10</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">9</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">catalina</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">----------------------------------------</span>
+<span class="o">********************************************************************************</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="previous chapter">2. Examples</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="next chapter">4. Install</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/report.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="install.html" title="4. Install"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="2. Examples"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">cloudbitsgo 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2014-2015, cloudbitsgo Devel Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.
+    </div>
+  </body>
+</html>

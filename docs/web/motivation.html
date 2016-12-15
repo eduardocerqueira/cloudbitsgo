@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1. Motivation &#8212; cloudbitsgo 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Examples" href="examples.html" />
+    <link rel="prev" title="Welcome to cloudbitsgo’s documentation!" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="examples.html" title="2. Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to cloudbitsgo’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">cloudbitsgo 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="motivation">
+<span id="id1"></span><h1>1. Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h1>
+<p>I helped a buddy in a file migrate between two servers but it wasn&#8217;t just a copy files from A to B! it was critical data from a PRODUCTION server running on [1] AWS so EC2 with a
+large EBS (Elastic Block Storage) and the data needed to be migrated to [2] EFS (Elastic File System).</p>
+<p>The PRODUCTION server wasn&#8217;t running on HA (High-Availability) mode was reaching the disk space limit very quick, ah this server was serving a Webserver and hosting an web
+application with more than 150k page views per month!</p>
+<p><strong>Why not rsync?</strong></p>
+<p>I am actually very familiar with rsync and use this in others scripts for backup my home-servers but the main reason was because rsync is slow and I wanted to move the file
+at the end of process not just compare files and copy the content to destination.</p>
+<p>so then I build this Linux tool to help on files migration from a source to a destination verifying the file was copied properly and then create a symbolic link from source
+to destination not interrupting access to file.</p>
+<p>for more info:</p>
+<p>[1] <a class="reference external" href="https://aws.amazon.com/ebs/">https://aws.amazon.com/ebs/</a></p>
+<p>[2] <a class="reference external" href="https://aws.amazon.com/efs/">https://aws.amazon.com/efs/</a></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to cloudbitsgo&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="next chapter">2. Examples</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/motivation.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="examples.html" title="2. Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to cloudbitsgo’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">cloudbitsgo 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2014-2015, cloudbitsgo Devel Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.
+    </div>
+  </body>
+</html>
