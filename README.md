@@ -10,6 +10,7 @@ running on HA mode and with more than 150k page views per month.
 for more info:
 
 [1] https://aws.amazon.com/ebs/
+
 [2] https://aws.amazon.com/efs/
 
 WHAT IS THIS?
@@ -95,6 +96,12 @@ Report with 2 executions appended:
 
 Report with 1 execution:
 ![Preview](https://github.com/eduardocerqueira/cloudbitsgo/raw/master/docs/source/_static/report_append.png)
+
+Listing DST with .sh files migrated from SRC and all links created from SRC to DST:
+
+![Preview](https://github.com/eduardocerqueira/cloudbitsgo/raw/master/docs/source/_static/src_link.png)
+
+![Preview](https://github.com/eduardocerqueira/cloudbitsgo/raw/master/docs/source/_static/dst_migrated.png)
 
 
 ## MORE INFO
