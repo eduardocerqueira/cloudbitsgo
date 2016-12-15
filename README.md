@@ -88,9 +88,13 @@ To install from latest RPM:
 	$ sudo dnf install https://copr-be.cloud.fedoraproject.org/results/eduardocerqueira/cloudbitsgo/fedora-24-x86_64/00474191-cloudbitsgo/cloudbitsgo-0.0.1-1.x86_64.rpm
 
 
-sample of report:
+sample of reports:
 
-![Preview](https://github.com/eduardocerqueira/cloudbitsgo/raw/master/docs/source/_static/report.png)
+Report with 2 executions appended:
+![Preview](https://github.com/eduardocerqueira/cloudbitsgo/raw/master/docs/source/_static/1_report.png)
+
+Report with 1 execution:
+![Preview](https://github.com/eduardocerqueira/cloudbitsgo/raw/master/docs/source/_static/2_report.png)
 
 
 ## MORE INFO
