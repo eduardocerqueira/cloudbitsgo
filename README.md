@@ -94,7 +94,7 @@ Report with 2 executions appended:
 ![Preview](https://github.com/eduardocerqueira/cloudbitsgo/raw/master/docs/source/_static/1_report.png)
 
 Report with 1 execution:
-![Preview](https://github.com/eduardocerqueira/cloudbitsgo/raw/master/docs/source/_static/2_report.png)
+![Preview](https://github.com/eduardocerqueira/cloudbitsgo/raw/master/docs/source/_static/report_append.png)
 
 
 ## MORE INFO
