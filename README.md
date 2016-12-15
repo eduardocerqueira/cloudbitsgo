@@ -84,8 +84,9 @@ for RHEL and CentOS:
 
 To install from latest RPM:
 
-**repo:** https://copr-be.cloud.fedoraproject.org/results/eduardocerqueira/cloudbitsgo/fedora-24-x86_64/00474191-cloudbitsgo/
+**repo:** https://copr.fedorainfracloud.org/coprs/eduardocerqueira/cloudbitsgo/
 
+	$ sudo yum install https://copr-be.cloud.fedoraproject.org/results/eduardocerqueira/cloudbitsgo/epel-7-x86_64/00489346-cloudbitsgo/cloudbitsgo-0.0.1-1.x86_64.rpm
 	$ sudo dnf install https://copr-be.cloud.fedoraproject.org/results/eduardocerqueira/cloudbitsgo/fedora-24-x86_64/00474191-cloudbitsgo/cloudbitsgo-0.0.1-1.x86_64.rpm
 
 
