@@ -1,0 +1,38 @@
+Name:		cloudbitsgo
+Version:	@RPM_VERSION@
+Release:	@RPM_RELEASE@
+Summary:	Migrate files and create symbolic links from src to dest
+Group:		Applications/Tools
+License:	GPL3+
+Source0:	http://github.com/eduardocerqueira/cloudbitsgo/%{name}-%{version}.tar.gz
+
+BuildRequires:  python-setuptools
+Requires:       python
+
+%global debug_package %{nil}
+
+%description
+cloudbitsgo is a Linux tool to migrate files and create symbolic links from src to dest
+
+%prep
+%setup -q -n %{name}
+
+%build
+%{__python} setup.py build
+
+%install
+%{__python} setup.py install -O1 --skip-build --root %{buildroot}
+mkdir -p %{buildroot}/%{_mandir}/man1
+cp cloudbitsgo.1 %{buildroot}/%{_mandir}/man1/cloudbitsgo.1
+
+%files
+%defattr(755,root,root,755)
+%{python_sitelib}/cloudbitsgo*
+%attr (755,root,root)/usr/bin/cloudbitsgo
+%doc README.md
+%doc AUTHORS
+%{_mandir}/man1/cloudbitsgo.1.gz
+
+%changelog
+* Sun Oct 30 2016 Eduardo Cerqueira <eduardomcerqueira@gmail.com> - 0.0.1
+- initial build

@@ -1,0 +1,83 @@
+----------------------------------------
+HOSTNAME: dev
+----------------------------------------
+START TIME: 2016-12-14 21:39:20.575761
+END TIME:   2016-12-14 21:39:20.599414
+DURATION:   0h:0m:0s
+----------------------------------------
+SRC: /home/ecerquei/openshift_app3/
+DST: /home/ecerquei/openshift_app4
+SRC DIR SIZE:   14MB
+TOTAL OF FILES: 33
+----------------------------------------
+SUCCESS: 33
+LINKED:  33 (nothing to do)
+ERROR:   0
+----------------------------------------
+LIST SUCCESS FILES 
+----------------------------------------
+1 /home/ecerquei/openshift_app3/flaskapp.pyc
+2 /home/ecerquei/openshift_app3/app.py
+3 /home/ecerquei/openshift_app3/flaskapp.cfg
+4 /home/ecerquei/openshift_app3/setup.py
+5 /home/ecerquei/openshift_app3/requirements.txt
+6 /home/ecerquei/openshift_app3/flaskapp.py
+7 /home/ecerquei/openshift_app3/README.md
+8 /home/ecerquei/openshift_app3/doc/tips.txt
+9 /home/ecerquei/openshift_app3/static/css/app.css
+10 /home/ecerquei/openshift_app3/static/audio/lionsleep.ogg
+11 /home/ecerquei/openshift_app3/static/audio/elsa.ogg
+12 /home/ecerquei/openshift_app3/static/audio/mickey.ogg
+13 /home/ecerquei/openshift_app3/static/audio/daniel.ogg
+14 /home/ecerquei/openshift_app3/static/audio/minions.ogg
+15 /home/ecerquei/openshift_app3/static/audio/elmo.ogg
+16 /home/ecerquei/openshift_app3/static/audio/barney.ogg
+17 /home/ecerquei/openshift_app3/static/img/minions.jpg
+18 /home/ecerquei/openshift_app3/static/img/elmo.jpg
+19 /home/ecerquei/openshift_app3/static/img/close.png
+20 /home/ecerquei/openshift_app3/static/img/barney.jpg
+21 /home/ecerquei/openshift_app3/static/img/lionsleep.jpg
+22 /home/ecerquei/openshift_app3/static/img/mickey.jpg
+23 /home/ecerquei/openshift_app3/static/img/lion-sleeps.png
+24 /home/ecerquei/openshift_app3/static/img/galinha.jpg
+25 /home/ecerquei/openshift_app3/static/img/elsa.jpg
+26 /home/ecerquei/openshift_app3/static/img/daniel.jpg
+27 /home/ecerquei/openshift_app3/templates/elsa.html
+28 /home/ecerquei/openshift_app3/templates/daniel.html
+29 /home/ecerquei/openshift_app3/templates/mickey.html
+30 /home/ecerquei/openshift_app3/templates/minions.html
+31 /home/ecerquei/openshift_app3/templates/barney.html
+32 /home/ecerquei/openshift_app3/templates/index.html
+33 /home/ecerquei/openshift_app3/templates/elmo.html
+----------------------------------------
+********************************************************************************
+----------------------------------------
+HOSTNAME: dev
+----------------------------------------
+START TIME: 2016-12-14 22:35:40.374854
+END TIME:   2016-12-14 22:35:40.389947
+DURATION:   0h:0m:0s
+----------------------------------------
+SRC: /tmp/apache-tomcat-8.0.9
+DST: /tmp/apache-tomcat-scripts
+SRC DIR SIZE:   270MB
+TOTAL OF FILES: 10
+----------------------------------------
+SUCCESS: 10
+LINKED:  10 (nothing to do)
+ERROR:   0
+----------------------------------------
+LIST SUCCESS FILES 
+----------------------------------------
+1 /tmp/apache-tomcat-8.0.9/webapps/jenkins/scripts/yui/cutdown.sh
+2 /tmp/apache-tomcat-8.0.9/bin/version.sh
+3 /tmp/apache-tomcat-8.0.9/bin/tool-wrapper.sh
+4 /tmp/apache-tomcat-8.0.9/bin/startup.sh
+5 /tmp/apache-tomcat-8.0.9/bin/shutdown.sh
+6 /tmp/apache-tomcat-8.0.9/bin/setclasspath.sh
+7 /tmp/apache-tomcat-8.0.9/bin/digest.sh
+8 /tmp/apache-tomcat-8.0.9/bin/daemon.sh
+9 /tmp/apache-tomcat-8.0.9/bin/configtest.sh
+10 /tmp/apache-tomcat-8.0.9/bin/catalina.sh
+----------------------------------------
+********************************************************************************

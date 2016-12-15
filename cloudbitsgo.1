@@ -1,0 +1,535 @@
+.\" Man page generated from reStructuredText.
+.
+.TH "CLOUDBITSGO" "1" "Dec 14, 2016" "0.0.1" "cloudbitsgo"
+.SH NAME
+cloudbitsgo \- cloudbitsgo Documentation
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.sp
+Contents:
+.SH MOTIVATION
+.sp
+I helped a buddy in a file migrate between two servers but it wasn\(aqt just a copy files from A to B! it was critical data from a PRODUCTION server running on [1] AWS so EC2 with a
+large EBS (Elastic Block Storage) and the data needed to be migrated to [2] EFS (Elastic File System).
+.sp
+The PRODUCTION server wasn\(aqt running on HA (High\-Availability) mode was reaching the disk space limit very quick, ah this server was serving a Webserver and hosting an web
+application with more than 150k page views per month!
+.sp
+\fBWhy not rsync?\fP
+.sp
+I am actually very familiar with rsync and use this in others scripts for backup my home\-servers but the main reason was because rsync is slow and I wanted to move the file
+at the end of process not just compare files and copy the content to destination.
+.sp
+so then I build this Linux tool to help on files migration from a source to a destination verifying the file was copied properly and then create a symbolic link from source
+to destination not interrupting access to file.
+.sp
+for more info:
+.sp
+[1] \fI\%https://aws.amazon.com/ebs/\fP
+.sp
+[2] \fI\%https://aws.amazon.com/efs/\fP
+.SH EXAMPLES
+.INDENT 0.0
+.IP 1. 3
+migrating all files from /home/eduardo/tmp to /home/eduardo/tmp1 with no filter:
+.INDENT 3.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+cloudbitsgo \-\-mig \-\-src /home/eduardo/tmp \-\-dst /home/eduardo/tmp1
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP 2. 3
+migrating omly .png files from /home/eduardo/tmp to /home/eduardo/tmp1:
+.INDENT 3.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+cloudbitsgo \-\-mig \-\-src /home/eduardo/tmp \-\-dst /home/eduardo/tmp1 \-\-filter ex .png
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP 3. 3
+migrating only files created in last 3 hours from /home/eduardo/tmp to /home/eduardo/tmp1:
+.INDENT 3.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+cloudbitsgo \-\-mig \-\-src /home/eduardo/tmp \-\-dst /home/eduardo/tmp1 \-\-filter lst 3 c
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP 4. 3
+migrating only files <= 10MB from /home/eduardo/tmp to /home/eduardo/tmp1:
+.INDENT 3.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+cloudbitsgo \-\-mig \-\-src /home/eduardo/tmp \-\-dst /home/eduardo/tmp1 \-\-filter sz <= 10 mb
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.sp
+for more links consult \fI\%filters\fP
+.SH REPORT
+.sp
+Report is a txt file generated after every execution. The file is created at current path where
+\fBcloudbitsgo\fP is executed and if executed more than once the data for the second execution will be appended at
+the end of file and separated by an asterisk line.
+.sp
+If \fIerrors\fP during a migration the bottom section of report that list all files will add a error section at the end of report and the section name will be
+LIST \fBERROR\fP FILES.
+.sp
+example of a report.txt file that had 2 executions:
+.sp
+[\fI\%ecerquei@dev\fP cloudbitsgo]$ cat report.txt:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+HOSTNAME: dev
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+START TIME: 2016\-12\-14 21:39:20.575761
+END TIME:   2016\-12\-14 21:39:20.599414
+DURATION:   0h:0m:0s
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+SRC: /home/ecerquei/openshift_app3/
+DST: /home/ecerquei/openshift_app4
+SRC DIR SIZE:   14MB
+TOTAL OF FILES: 33
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+SUCCESS: 33
+LINKED:  33 (nothing to do)
+ERROR:   0
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+LIST SUCCESS FILES
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+1 /home/ecerquei/openshift_app3/flaskapp.pyc
+2 /home/ecerquei/openshift_app3/app.py
+3 /home/ecerquei/openshift_app3/flaskapp.cfg
+4 /home/ecerquei/openshift_app3/setup.py
+5 /home/ecerquei/openshift_app3/requirements.txt
+6 /home/ecerquei/openshift_app3/flaskapp.py
+7 /home/ecerquei/openshift_app3/README.md
+8 /home/ecerquei/openshift_app3/doc/tips.txt
+9 /home/ecerquei/openshift_app3/static/css/app.css
+10 /home/ecerquei/openshift_app3/static/audio/lionsleep.ogg
+11 /home/ecerquei/openshift_app3/static/audio/elsa.ogg
+12 /home/ecerquei/openshift_app3/static/audio/mickey.ogg
+13 /home/ecerquei/openshift_app3/static/audio/daniel.ogg
+14 /home/ecerquei/openshift_app3/static/audio/minions.ogg
+15 /home/ecerquei/openshift_app3/static/audio/elmo.ogg
+16 /home/ecerquei/openshift_app3/static/audio/barney.ogg
+17 /home/ecerquei/openshift_app3/static/img/minions.jpg
+18 /home/ecerquei/openshift_app3/static/img/elmo.jpg
+19 /home/ecerquei/openshift_app3/static/img/close.png
+20 /home/ecerquei/openshift_app3/static/img/barney.jpg
+21 /home/ecerquei/openshift_app3/static/img/lionsleep.jpg
+22 /home/ecerquei/openshift_app3/static/img/mickey.jpg
+23 /home/ecerquei/openshift_app3/static/img/lion\-sleeps.png
+24 /home/ecerquei/openshift_app3/static/img/galinha.jpg
+25 /home/ecerquei/openshift_app3/static/img/elsa.jpg
+26 /home/ecerquei/openshift_app3/static/img/daniel.jpg
+27 /home/ecerquei/openshift_app3/templates/elsa.html
+28 /home/ecerquei/openshift_app3/templates/daniel.html
+29 /home/ecerquei/openshift_app3/templates/mickey.html
+30 /home/ecerquei/openshift_app3/templates/minions.html
+31 /home/ecerquei/openshift_app3/templates/barney.html
+32 /home/ecerquei/openshift_app3/templates/index.html
+33 /home/ecerquei/openshift_app3/templates/elmo.html
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+********************************************************************************
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+HOSTNAME: dev
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+START TIME: 2016\-12\-14 22:35:40.374854
+END TIME:   2016\-12\-14 22:35:40.389947
+DURATION:   0h:0m:0s
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+SRC: /tmp/apache\-tomcat\-8.0.9
+DST: /tmp/apache\-tomcat\-scripts
+SRC DIR SIZE:   270MB
+TOTAL OF FILES: 10
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+SUCCESS: 10
+LINKED:  10 (nothing to do)
+ERROR:   0
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+LIST SUCCESS FILES
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+1 /tmp/apache\-tomcat\-8.0.9/webapps/jenkins/scripts/yui/cutdown.sh
+2 /tmp/apache\-tomcat\-8.0.9/bin/version.sh
+3 /tmp/apache\-tomcat\-8.0.9/bin/tool\-wrapper.sh
+4 /tmp/apache\-tomcat\-8.0.9/bin/startup.sh
+5 /tmp/apache\-tomcat\-8.0.9/bin/shutdown.sh
+6 /tmp/apache\-tomcat\-8.0.9/bin/setclasspath.sh
+7 /tmp/apache\-tomcat\-8.0.9/bin/digest.sh
+8 /tmp/apache\-tomcat\-8.0.9/bin/daemon.sh
+9 /tmp/apache\-tomcat\-8.0.9/bin/configtest.sh
+10 /tmp/apache\-tomcat\-8.0.9/bin/catalina.sh
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+********************************************************************************
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH INSTALL
+.sp
+\fBTested on Fedora 24 and AWS Linux version 7.0\fP
+.sp
+Fedora OS:
+.sp
+local build:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+make rpm
+sudo dnf reinstall rpmbuild/RPMS/x86_64/cloudbitsgo\-0.0.1\-1.x86_64.rpm
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+copr repo:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+sudo dnf install copr....
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+AWS Linux OS:
+.sp
+copr repo:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+sudo yum install copr....
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH FILTER
+.sp
+Types of filter:
+.INDENT 0.0
+.IP \(bu 2
+by extension
+.UNINDENT
+.sp
+Accepts multiple formats separated by space.
+.sp
+usage:
+.sp
+all files from /home/eduardo/tmp and extension is .txt or .json or .jpg:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+cloudbitsgo \-\-mig \-\-src /home/eduardo/tmp \-\-dst /home/eduardo/tmp1 \-\-filter ex .txt .json .jpg
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.IP \(bu 2
+by last X time ACU [ Accessed, Created, Updated ]
+.UNINDENT
+.sp
+Filter files by Accessed, Created or Updated/Modified during a time. The time unit is HOUR
+.sp
+usage:
+.sp
+all files from /home/eduardo/tmp and created in last 1 hour:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+cloudbitsgo \-\-mig \-\-src /home/eduardo/tmp \-\-dst /home/eduardo/tmp1 \-\-filter lst 1 c
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+all files from /home/eduardo/tmp and modified in last 5 hours:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+cloudbitsgo \-\-mig \-\-src /home/eduardo/tmp \-\-dst /home/eduardo/tmp1 \-\-filter lst 5 u
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+all files from /home/eduardo/tmp and accessed in last 1 hour:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+cloudbitsgo \-\-mig \-\-src /home/eduardo/tmp \-\-dst /home/eduardo/tmp1 \-\-filter lst 1 a
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.IP \(bu 2
+by size <>= X MB
+.UNINDENT
+.sp
+Accepts arithmetic symbols to compare file size like: <,>,<=,>= and the unit can be MB or GB, lower case works too so mb, gb.
+.sp
+usage:
+.sp
+all files from /home/eduardo/tmp and size less or equal 1MB:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+cloudbitsgo \-\-mig \-\-src /home/eduardo/tmp \-\-dst /home/eduardo/tmp1 \-\-filter sz <= 1 mb
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+all files from /home/eduardo/tmp and size less or equal 1GB:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+cloudbitsgo \-\-mig \-\-src /home/eduardo/tmp \-\-dst /home/eduardo/tmp1 \-\-filter sz <= 1 gb
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH SETUP DEVELOPMENT ENVIRONMENT
+.SS Source Code
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$ git clone https://github.com/eduardocerqueira/cloudbitsgo.git
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Installation
+.SS Option 1: Start it on RPM
+.sp
+For development purposes, install following dependencies:
+.INDENT 0.0
+.IP \(bu 2
+python = 2.7
+.IP \(bu 2
+python\-pip
+.IP \(bu 2
+Run the following
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$ cd cloudbitsgo
+$ pip install \-r requirements/devel.txt
+$ pip install \-r requirements/production.txt
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SS Option 2: Start it on Docker
+.sp
+\fBin progress\fP
+.INDENT 0.0
+.IP \(bu 2
+Install Docker: see the \fI\%official installation
+guide\fP for details. Generally, it
+might be enough to run install it with \fByum\fP and the run it.
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$ sudo yum install docker\-engine
+$ sudo service docker start
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+for OS with SELINUX capabilities remember to setenforce 0 before start your docker service
+.IP \(bu 2
+Use this command to build a new image
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$ sudo docker build \-t <YOUR_NAME>/cloudbitsgo <the directory your Dockerfile is located>
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP \(bu 2
+Run the container
+.INDENT 2.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$ docker run \-it \-d \-P <YOUR_NAME>/cloudbitsgo /bin/bash
+$ cloudbitsgo \-\-help
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SH BUILD
+.SS From your local machine
+.INDENT 0.0
+.INDENT 3.5
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+$ cd cloudbitsgo
+$ make
+
+Usage: make <target> where <target> is one of
+
+clean     clean temp files from local workspace
+doc       generate sphinx documentation and man pages
+test      run unit tests locally
+tarball   generate tarball of project
+rpm       build source codes and generate rpm file
+srpm      generate SRPM file
+all       clean test doc rpm
+flake8    check Python style based on flake8
+
+
+$ make rpm
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SS Copr
+.INDENT 0.0
+.INDENT 3.5
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+Before doing any release, make sure that you have account on both sites and also make sure that you could
+access to your fedorapeople space [1] and have enough permissions [2] to build \fIcloudbitsgo\fP in \fICopr\fP\&.
+.INDENT 0.0
+.INDENT 3.5
+.INDENT 0.0
+.INDENT 3.5
+$ make srpm
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.IP 1. 3
+copy rpmbuild/SRPMS/cloudbitsgo\-0.0.1\-1.src.rpm to cloudbitsgo/copr
+.IP 2. 3
+push cloudbitsgo/copr to github
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.sp
+\fIcopr\-cli\fP will be used, installed by \fIsudo yum/dnf install copr\-cli\fP and configure it. [3]
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.sp
+Request as \fIBuilder\fP for projects \fIcloudbitsgo\fP, wait until admin approves.
+.sp
+$ copr\-cli build cloudbitsgo \fI\%https://github.com/eduardocerqueira/cloudbitsgo/raw/master/copr/cloudbitsgo\-0.0.1\-1.src.rpm\fP
+.sp
+Go and grab a cup of tea or coffee, the release build will be come out soon
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+# tag based builds: \(gahttps://copr.fedorainfracloud.org/coprs/eduardocerqueira/cloudbitsgo/builds/\(ga
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.IP [1] 5
+\fI\%https://fedorahosted.org/copr/wiki/HowToEnableRepo\fP
+.IP [2] 5
+\fI\%http://fedoraproject.org/wiki/Infrastructure/fedorapeople.org#Accessing_Your_fedorapeople.org_Space\fP
+.IP [3] 5
+\fI\%https://fedorahosted.org/copr/wiki/UserDocs#CanIgiveaccesstomyrepotomyteammate\fP
+.IP [4] 5
+\fI\%https://copr.fedoraproject.org/api/\fP
+.INDENT 0.0
+.IP \(bu 2
+genindex
+.IP \(bu 2
+search
+.UNINDENT
+.SH AUTHOR
+cloudbitsgo Devel Team
+.SH COPYRIGHT
+2014-2015, cloudbitsgo Devel Team
+.\" Generated by docutils manpage writer.
+.
