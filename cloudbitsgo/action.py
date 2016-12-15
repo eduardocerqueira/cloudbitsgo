@@ -115,9 +115,9 @@ class Action(object):
         # LARGE  > 100 GB or 104,857,600 KB
 
         if dir_size_converted['raw'] > 500000:
-            self.log.info(self.cnst.MLINE)
+            self.log.info(MLINE)
             self.log.info('This can take several minutes to complete')
-            self.log.info(self.cnst.MLINE)
+            self.log.info(MLINE)
 
         file_mig = []
         # read every individual file from src path
