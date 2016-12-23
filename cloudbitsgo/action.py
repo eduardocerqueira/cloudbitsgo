@@ -149,6 +149,7 @@ class Action(object):
         _success = 0
         _linked = False
         _msg_err = None
+        _retry = 0
 
         try:
             # don't do anything, src symbolic link already pointing to dst
@@ -158,7 +159,7 @@ class Action(object):
                     _success = 1
                     return True
 
-            while(_fmig_complete is False):
+            while(_fmig_complete is False and _retry <= 3):
                 # create folder/subfolder at destination
                 if(os.path.exists(fmig['dst_dir']) is False):
                     os.makedirs(fmig['dst_dir'], 0755)
@@ -167,6 +168,8 @@ class Action(object):
 
                 # copy file from src to dst
                 shutil.copy2(fmig['src_full_path'], fmig['dst_full_path'])
+                # fix permissions based on src
+                shutil.copystat(fmig['src_full_path'], fmig['dst_full_path'])
 
                 # check file
                 if filecmp.cmp(fmig['src_full_path'], fmig['dst_full_path']):
@@ -174,6 +177,7 @@ class Action(object):
                 else:
                     os.remove(fmig['dst_full_path'])
                     _fmig_complete = False
+                    _retry += 1
 
             # fix permissions based on src
             shutil.copystat(fmig['src_full_path'], fmig['dst_full_path'])
@@ -376,7 +380,7 @@ class Report(object):
 
         hours, minutes, seconds = self.calc_time.delta()
 
-        with open('report.txt', 'a') as report:
+        with open('/tmp/report.txt', 'a') as report:
             report.write(MLINE + '\n')
             report.write('HOSTNAME: %s\n' % self.hostname)
             report.write(MLINE + '\n')

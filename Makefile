@@ -2,7 +2,7 @@ default: help
 
 NAME=cloudbitsgo
 MAN=cloudbitsgo.1
-VERSION=0.0.1
+VERSION=0.0.2
 RPMDIST=$(shell rpm --eval '%dist')
 #RELEASE=1$(rpmsuffix)$(RPMDIST)
 RELEASE=1
