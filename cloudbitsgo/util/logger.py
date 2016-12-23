@@ -13,14 +13,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from logging import DEBUG, INFO, getLogger, Formatter, StreamHandler
+from logging import DEBUG, INFO, getLogger, Formatter, FileHandler
 
 
 def get_logger(name, verbose=None):
     """Custom logging"""
     logger = getLogger(name)
     logger.propagate = False
-    handler = StreamHandler()
+    #handler = StreamHandler()
+    handler = FileHandler('/tmp/cloudbitsgo.log')
 
     if verbose:
         console = ("%(asctime)s %(levelname)s "

@@ -166,10 +166,16 @@ class Action(object):
                     # fix permissions based on src
                     shutil.copystat(fmig['src_dir'], fmig['dst_dir'])
 
+                # subprocess handling native Unix copy
+                p = subprocess.Popen(['cp','-p','--preserve',
+                                      fmig['src_full_path'],
+                                      fmig['dst_full_path']])
+                p.wait()
+
                 # copy file from src to dst
-                shutil.copy2(fmig['src_full_path'], fmig['dst_full_path'])
+                #shutil.copy2(fmig['src_full_path'], fmig['dst_full_path'])
                 # fix permissions based on src
-                shutil.copystat(fmig['src_full_path'], fmig['dst_full_path'])
+                #shutil.copystat(fmig['src_full_path'], fmig['dst_full_path'])
 
                 # check file
                 if filecmp.cmp(fmig['src_full_path'], fmig['dst_full_path']):
@@ -180,7 +186,7 @@ class Action(object):
                     _retry += 1
 
             # fix permissions based on src
-            shutil.copystat(fmig['src_full_path'], fmig['dst_full_path'])
+            #shutil.copystat(fmig['src_full_path'], fmig['dst_full_path'])
 
             # delete file on source
             os.remove(fmig['src_full_path'])
@@ -201,6 +207,8 @@ class Action(object):
                        'error': _error,
                        'file_name': _fname
                        }
+
+            self.log.info(_result)
 
             # save into database for monitoring migration
             save_to_db(_result['file_name'], _result['success'],
