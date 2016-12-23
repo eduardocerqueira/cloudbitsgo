@@ -16,10 +16,11 @@
 from action import Action, Report, CalcTime
 from cloudbitsgo.util import get_args
 from cloudbitsgo.util.logger import get_logger
-
+from cloudbitsgo.util.dbreport import create_db
 
 def main():
     try:
+        create_db()
         calctime = CalcTime()
         # Start execution
         start_time = calctime.start()

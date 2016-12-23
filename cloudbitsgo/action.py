@@ -148,6 +148,7 @@ class Action(object):
         _fname = fmig['src_full_path']
         _success = 0
         _linked = False
+        _msg_err = None
 
         try:
             # don't do anything, src symbolic link already pointing to dst
@@ -166,8 +167,6 @@ class Action(object):
 
                 # copy file from src to dst
                 shutil.copy2(fmig['src_full_path'], fmig['dst_full_path'])
-                # fix permissions based on src
-                shutil.copystat(fmig['src_full_path'], fmig['dst_full_path'])
 
                 # check file
                 if filecmp.cmp(fmig['src_full_path'], fmig['dst_full_path']):
@@ -175,6 +174,9 @@ class Action(object):
                 else:
                     os.remove(fmig['dst_full_path'])
                     _fmig_complete = False
+
+            # fix permissions based on src
+            shutil.copystat(fmig['src_full_path'], fmig['dst_full_path'])
 
             # delete file on source
             os.remove(fmig['src_full_path'])
@@ -187,6 +189,7 @@ class Action(object):
 
         except Exception as ex:
             self.log.error(ex)
+            _msg_err = ex
             _error = 1
         finally:
             _result = {'success': _success,
@@ -198,7 +201,8 @@ class Action(object):
             # save into database for monitoring migration
             save_to_db(_result['file_name'], _result['success'],
                        _result['error'], _result['linked_src_dst'],
-                       fmig['dst_full_path'], fmig['src_full_path'])
+                       fmig['dst_full_path'], fmig['src_full_path'],
+                       _msg_err)
 
             return _result
 
