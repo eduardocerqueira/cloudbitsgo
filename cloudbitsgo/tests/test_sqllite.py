@@ -3,16 +3,14 @@ from datetime import datetime
 
 def get_conn():
     try:
-        conn = sqlite3.connect('mig.db')
+        conn = sqlite3.connect('/tmp/mig.db')
         return conn
     except IOError as ex:
         print(ex)
-
     return None
 
-
 def create():
-    conn = sqlite3.connect('mig.db')
+    conn = sqlite3.connect('/tmp/mig.db')
     print "Opened database successfully";
 
     conn.execute('''CREATE TABLE MIGRATION
@@ -21,15 +19,14 @@ def create():
            TIMESTAMP  TIMESTAMP,
            SUCCESS    INT,
            ERROR      INT,
-           LINKED_SRC_DST TEXT);''')
+           LINKED_SRC_DST TEXT,
+           SRC_FULL_PATH TEXT,
+           DST_FULL_PATH TEXT);''')
     print "Table created successfully";
-
     conn.close()
-
 
 def insert():
     conn = get_conn()
-
     with conn:
         for idx in range(1,10):
             file_name = 'test%s.js' % idx
@@ -37,14 +34,18 @@ def insert():
             success = 1
             error = 0
             linked_src_dst = 'test%s.js.link' % idx
-            mig = (file_name, time_stamp, success, error, linked_src_dst)
-
-            sql = ''' INSERT INTO MIGRATION(FILE_NAME,TIMESTAMP,SUCCESS,ERROR,LINKED_SRC_DST) VALUES(?,?,?,?,?) '''
-
+            src_full_path = '/tmp/file1.jsp'
+            dst_full_path = '/tmp/mig/file1.jsp'
+            mig = (file_name, time_stamp, success, error,
+                   linked_src_dst, src_full_path, dst_full_path)
+            _sql = ''' INSERT INTO MIGRATION(FILE_NAME,TIMESTAMP,SUCCESS,\
+            ERROR,LINKED_SRC_DST,SRC_FULL_PATH,DST_FULL_PATH) \
+            VALUES(?,?,?,?,?,?,?) '''
             try:
                 cur = conn.cursor()
-                cur.execute(sql, mig)
+                cur.execute(_sql, mig)
                 conn.commit()
+                print "saved!"
             except Exception as ex:
                 print ex
     conn.close()

@@ -17,6 +17,7 @@ from os.path import exists
 from cloudbitsgo.constant import SLINE, MLINE, RPTLINE
 from cloudbitsgo.util.decorators import retry
 from cloudbitsgo.util.logger import get_logger
+from cloudbitsgo.util.dbreport import save_to_db
 import sys
 import subprocess
 import os
@@ -133,8 +134,6 @@ class Action(object):
                                      'src_full_path': src_full_path,
                                      'dst_full_path': dst_full_path
                                      })
-                    # save into database
-                    # TODO: AQUI
 
         self.log.info('TOTAL of %s files', file_mig.__len__())
         dir_size_formatted = '%s%s' % (dir_size_converted['size'],
@@ -167,23 +166,24 @@ class Action(object):
 
                 # copy file from src to dst
                 shutil.copy2(fmig['src_full_path'], fmig['dst_full_path'])
+                # fix permissions based on src
+                shutil.copystat(fmig['src_full_path'], fmig['dst_full_path'])
 
                 # check file
                 if filecmp.cmp(fmig['src_full_path'], fmig['dst_full_path']):
                     _fmig_complete = True
                 else:
                     os.remove(fmig['dst_full_path'])
-                    shutil.copy2(fmig['src_full_path'], fmig['dst_full_path'])
                     _fmig_complete = False
 
-                # delete file on source
-                os.remove(fmig['src_full_path'])
+            # delete file on source
+            os.remove(fmig['src_full_path'])
 
-                # set symbolic link
-                os.symlink(fmig['dst_full_path'], fmig['src_full_path'])
+            # set symbolic link
+            os.symlink(fmig['dst_full_path'], fmig['src_full_path'])
 
-                _linked = True
-                _success = 1
+            _linked = True
+            _success = 1
 
         except Exception as ex:
             self.log.error(ex)
@@ -194,6 +194,11 @@ class Action(object):
                        'error': _error,
                        'file_name': _fname
                        }
+
+            # save into database for monitoring migration
+            save_to_db(_result['file_name'], _result['success'],
+                       _result['error'], _result['linked_src_dst'],
+                       fmig['dst_full_path'], fmig['src_full_path'])
 
             return _result
 
@@ -296,7 +301,6 @@ class Action(object):
 
         for fmig in _files:
             _each_rs.append(self.run(fmig))
-            # TODO: ship to elastic
 
         _result = {'total_files': _total_files,
                    'dir_size': dir_size,

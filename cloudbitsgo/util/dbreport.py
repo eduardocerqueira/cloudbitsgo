@@ -20,12 +20,15 @@ def get_conn():
         print ex
     return None
 
-def save_to_db(file_name, mig_success, mig_error, linked_src_dst):
+def save_to_db(file_name, mig_suc, mig_err, lkd_src_dst, src_path, dst_path):
     conn = get_conn()
     with conn:
         time_stamp = datetime.now()
-        mig = (file_name, time_stamp, mig_success, mig_error, linked_src_dst)
-        _sql = ''' INSERT INTO MIGRATION(FILE_NAME,TIMESTAMP,SUCCESS,ERROR,LINKED_SRC_DST) VALUES(?,?,?,?,?) '''
+        mig = (file_name, time_stamp, mig_suc, mig_err, lkd_src_dst,
+               src_path, dst_path)
+        _sql = ''' INSERT INTO MIGRATION(FILE_NAME,TIMESTAMP,SUCCESS,\
+        ERROR,LINKED_SRC_DST,SRC_FULL_PATH,DST_FULL_PATH)\
+        VALUES(?,?,?,?,?,?,?) '''
         try:
             cur = conn.cursor()
             cur.execute(_sql, mig)
@@ -33,7 +36,3 @@ def save_to_db(file_name, mig_success, mig_error, linked_src_dst):
         except Exception as ex:
             print ex
     conn.close()
-
-if __name__ == '__main__':
-    create_db()
-    save_to_db()
