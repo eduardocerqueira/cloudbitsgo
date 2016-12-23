@@ -133,6 +133,8 @@ class Action(object):
                                      'src_full_path': src_full_path,
                                      'dst_full_path': dst_full_path
                                      })
+                    # save into database
+                    # TODO: AQUI
 
         self.log.info('TOTAL of %s files', file_mig.__len__())
         dir_size_formatted = '%s%s' % (dir_size_converted['size'],
@@ -294,6 +296,7 @@ class Action(object):
 
         for fmig in _files:
             _each_rs.append(self.run(fmig))
+            # TODO: ship to elastic
 
         _result = {'total_files': _total_files,
                    'dir_size': dir_size,
