@@ -1,6 +1,7 @@
 import sqlite3
 from datetime import datetime
 
+
 def get_conn():
     try:
         conn = sqlite3.connect('/tmp/mig.db')
@@ -9,10 +10,10 @@ def get_conn():
         print(ex)
     return None
 
+
 def create():
     conn = sqlite3.connect('/tmp/mig.db')
-    print "Opened database successfully";
-
+    print "Opened database successfully"
     conn.execute('''CREATE TABLE MIGRATION
            (ID        INTEGER PRIMARY KEY,
            FILE_NAME  TEXT,
@@ -22,13 +23,14 @@ def create():
            LINKED_SRC_DST TEXT,
            SRC_FULL_PATH TEXT,
            DST_FULL_PATH TEXT);''')
-    print "Table created successfully";
+    print "Table created successfully"
     conn.close()
+
 
 def insert():
     conn = get_conn()
     with conn:
-        for idx in range(1,10):
+        for idx in range(1, 10):
             file_name = 'test%s.js' % idx
             time_stamp = datetime.now()
             success = 1
@@ -50,7 +52,7 @@ def insert():
                 print ex
     conn.close()
 
-if __name__ == '__main__':
-    #create()
-    insert()
 
+if __name__ == '__main__':
+    create()
+    insert()

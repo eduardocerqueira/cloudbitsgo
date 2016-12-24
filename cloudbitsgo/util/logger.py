@@ -20,7 +20,6 @@ def get_logger(name, verbose=None):
     """Custom logging"""
     logger = getLogger(name)
     logger.propagate = False
-    #handler = StreamHandler()
     handler = FileHandler('/tmp/cloudbitsgo.log')
 
     if verbose:

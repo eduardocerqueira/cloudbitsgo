@@ -167,15 +167,10 @@ class Action(object):
                     shutil.copystat(fmig['src_dir'], fmig['dst_dir'])
 
                 # subprocess handling native Unix copy
-                p = subprocess.Popen(['cp','-p','--preserve',
-                                      fmig['src_full_path'],
-                                      fmig['dst_full_path']])
-                p.wait()
-
-                # copy file from src to dst
-                #shutil.copy2(fmig['src_full_path'], fmig['dst_full_path'])
-                # fix permissions based on src
-                #shutil.copystat(fmig['src_full_path'], fmig['dst_full_path'])
+                cp_proc = subprocess.Popen(['cp', '-p', '--preserve',
+                                            fmig['src_full_path'],
+                                            fmig['dst_full_path']])
+                cp_proc.wait()
 
                 # check file
                 if filecmp.cmp(fmig['src_full_path'], fmig['dst_full_path']):
@@ -185,14 +180,18 @@ class Action(object):
                     _fmig_complete = False
                     _retry += 1
 
-            # fix permissions based on src
-            #shutil.copystat(fmig['src_full_path'], fmig['dst_full_path'])
-
             # delete file on source
             os.remove(fmig['src_full_path'])
 
             # set symbolic link
             os.symlink(fmig['dst_full_path'], fmig['src_full_path'])
+
+            # set user and group to link
+            statinfo = os.stat(fmig['src_full_path'])
+            print statinfo.st_uid
+            print statinfo.st_gid
+
+            os.chown(fmig['dst_full_path'], statinfo.st_uid, statinfo.st_gid)
 
             _linked = True
             _success = 1
@@ -422,7 +421,6 @@ class Report(object):
         line_number = 1
         for fmig in self.each_fmig:
             if fmig[fstatus] == 1:
-                freport.write(str(line_number) + ' ' +
-                             fmig['file_name'] + '\n')
+                freport.write(str(line_number) + ' ' + fmig['file_name'] + '\n')
                 line_number += 1
         freport.write(MLINE + '\n')
