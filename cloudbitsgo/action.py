@@ -188,9 +188,6 @@ class Action(object):
 
             # set user and group to link
             statinfo = os.stat(fmig['src_full_path'])
-            print statinfo.st_uid
-            print statinfo.st_gid
-
             os.chown(fmig['dst_full_path'], statinfo.st_uid, statinfo.st_gid)
 
             _linked = True
