@@ -5,6 +5,7 @@ from cloudbitsgo.util.logger import get_logger
 
 log = get_logger(__name__)
 
+
 def create_db():
     if not exists('/tmp/mig.db'):
         conn = sqlite3.connect('/tmp/mig.db')
