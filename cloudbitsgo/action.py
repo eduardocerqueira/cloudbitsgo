@@ -122,7 +122,7 @@ class Action(object):
 
         file_mig = []
         # read every individual file from src path
-        for root, dirs, files in os.walk(unicode(self.src)):
+        for root, dirs, files in os.walk(self.src):
             for file_name in files:
                 src_full_path = os.path.join(root, file_name)
                 if self.custom_filter(src_full_path):
