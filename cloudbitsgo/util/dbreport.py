@@ -1,7 +1,9 @@
 import sqlite3
 from datetime import datetime
 from os.path import exists
+from cloudbitsgo.util.logger import get_logger
 
+log = get_logger(__name__)
 
 def create_db():
     if not exists('/tmp/mig.db'):
@@ -24,7 +26,7 @@ def get_conn():
         conn = sqlite3.connect('/tmp/mig.db')
         return conn
     except IOError as ex:
-        print ex
+        log.error(ex)
     return None
 
 
@@ -33,14 +35,14 @@ def save_to_db(file_name, mig_suc, mig_err, lkd_src_dst,
     conn = get_conn()
     with conn:
         time_stamp = datetime.now()
-        mig = (file_name.decode('utf8'),
+        mig = (file_name,
                time_stamp,
                mig_suc,
                mig_err,
                lkd_src_dst,
-               src_path.decode('utf8'),
-               dst_path.decode('utf8'),
-               str(err_msg).decode('utf8'))
+               src_path,
+               dst_path,
+               str(err_msg))
         _sql = ''' INSERT INTO MIGRATION(FILE_NAME,TIMESTAMP,MIG_SUCCESS,\
         MIG_ERROR,LINKED_SRC_DST,SRC_FULL_PATH,DST_FULL_PATH,ERROR_MSG)\
         VALUES(?,?,?,?,?,?,?,?) '''
@@ -49,5 +51,5 @@ def save_to_db(file_name, mig_suc, mig_err, lkd_src_dst,
             cur.execute(_sql, mig)
             conn.commit()
         except Exception as ex:
-            print ex
+            log.error(ex)
     conn.close()
