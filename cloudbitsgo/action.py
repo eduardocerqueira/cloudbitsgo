@@ -221,7 +221,7 @@ class Action(object):
                                     _statinfo.st_uid, _statinfo.st_gid)
                 else:
                     self.set_uidgid([fmig['src_full_path'],
-                         fmig['dst_full_path']])
+                                     fmig['dst_full_path']])
 
             _result = {'success': _success,
                        'linked_src_dst': _linked,

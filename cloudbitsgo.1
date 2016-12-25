@@ -103,6 +103,13 @@ cloudbitsgo \-\-mig \-\-src /home/eduardo/tmp \-\-dst /home/eduardo/tmp1 \-\-fil
 .fi
 .UNINDENT
 .UNINDENT
+.IP 5. 3
+migrating all files from src to dst and forcing user and group to 1000. note you get the uid and gid at /etc/group
+.INDENT 3.0
+.INDENT 3.5
+sudo cloudbitsgo \-\-mig \-\-src /tmp/origin/Desktop/ \-\-dst /tmp/destination/Desktop/ \-\-uidgid 1000:1000
+.UNINDENT
+.UNINDENT
 .UNINDENT
 .sp
 for more links consult \fI\%filters\fP
