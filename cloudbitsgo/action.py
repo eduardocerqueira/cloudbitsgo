@@ -151,7 +151,6 @@ class Action(object):
             gid = int(self.args.uidgid.split(':')[1])
 
         for _path in file_path:
-            print ('%s %s:%s' % (_path, uid, gid))
             os.chown(_path, uid, gid)
             os.lchown(_path, uid, gid)
 
@@ -215,7 +214,6 @@ class Action(object):
         finally:
             if _error == 0:
                 if _statinfo:
-                    print "_statinfo"
                     self.set_uidgid([fmig['dst_full_path'],
                                      fmig['src_full_path']],
                                     _statinfo.st_uid, _statinfo.st_gid)
