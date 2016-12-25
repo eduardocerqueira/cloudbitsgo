@@ -52,6 +52,13 @@ def get_args():
                                 required=True,
                                 action='store')
 
+    parser.add_argument("--uidgid",
+                        help="set user id and group id to symbolic link, e.g:\
+                        --uidgid 1000:1000",
+                        type=str,
+                        default=False,
+                        action="store")
+
     parser.add_argument("--verbose",
                         help="run on verbose mode (DEBUG) level",
                         default=False,

@@ -122,7 +122,7 @@ class Action(object):
 
         file_mig = []
         # read every individual file from src path
-        for root, dirs, files in os.walk(self.src):
+        for root, dirs, files in os.walk(unicode(self.src)):
             for file_name in files:
                 src_full_path = os.path.join(root, file_name)
                 if self.custom_filter(src_full_path):
@@ -140,6 +140,21 @@ class Action(object):
                                        dir_size_converted['unit'])
         return file_mig, dir_size_formatted
 
+    def set_uidgid(self, file_path, uid=None, gid=None):
+        """Set user id and group id for symbolic link
+        :param file_path: full path to have permissions set
+        :type list str
+        """
+        # when --uidgid parameter is passed as argument
+        if self.args.uidgid:
+            uid = int(self.args.uidgid.split(':')[0])
+            gid = int(self.args.uidgid.split(':')[1])
+
+        for _path in file_path:
+            print ('%s %s:%s' % (_path, uid, gid))
+            os.chown(_path, uid, gid)
+            os.lchown(_path, uid, gid)
+
     @retry(Exception, tries=3, delay=10)
     def run(self, fmig):
         """Manage the individual file migration"""
@@ -150,6 +165,7 @@ class Action(object):
         _linked = False
         _msg_err = None
         _retry = 0
+        _statinfo = None
 
         try:
             # don't do anything, src symbolic link already pointing to dst
@@ -180,15 +196,14 @@ class Action(object):
                     _fmig_complete = False
                     _retry += 1
 
+            # get file stats from src file before deletion
+            _statinfo = os.stat(fmig['src_full_path'])
+
             # delete file on source
             os.remove(fmig['src_full_path'])
 
-            # set symbolic link
+            # create symbolic link
             os.symlink(fmig['dst_full_path'], fmig['src_full_path'])
-
-            # set user and group to link
-            statinfo = os.stat(fmig['src_full_path'])
-            os.chown(fmig['dst_full_path'], statinfo.st_uid, statinfo.st_gid)
 
             _linked = True
             _success = 1
@@ -198,6 +213,16 @@ class Action(object):
             _msg_err = ex
             _error = 1
         finally:
+            if _error == 0:
+                if _statinfo:
+                    print "_statinfo"
+                    self.set_uidgid([fmig['dst_full_path'],
+                                     fmig['src_full_path']],
+                                    _statinfo.st_uid, _statinfo.st_gid)
+                else:
+                    self.set_uidgid([fmig['src_full_path'],
+                         fmig['dst_full_path']])
+
             _result = {'success': _success,
                        'linked_src_dst': _linked,
                        'error': _error,

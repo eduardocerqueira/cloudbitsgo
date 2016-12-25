@@ -20,4 +20,8 @@ Examples
 
 	cloudbitsgo --mig --src /home/eduardo/tmp --dst /home/eduardo/tmp1 --filter sz <= 10 mb
 
+5. migrating all files from src to dst and forcing user and group to 1000. note you get the uid and gid at /etc/group
+
+	sudo cloudbitsgo --mig --src /tmp/origin/Desktop/ --dst /tmp/destination/Desktop/ --uidgid 1000:1000
+
 for more links consult `filters <filter.html>`_
