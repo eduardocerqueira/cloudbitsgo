@@ -11,6 +11,7 @@ RPMTOP=$(PWD)/rpmbuild
 SPEC=$(NAME).spec
 TARBALL=$(NAME)-$(VERSION).tar.gz
 SRPM=$(NAME)-$(VERSION)-$(RELEASE).src.rpm
+BRANCH=$(shell git symbolic-ref --short HEAD)
 
 help:
 	@echo
@@ -22,6 +23,7 @@ help:
 	@echo "tarball   generate tarball of project"
 	@echo "rpm       build source codes and generate rpm file"
 	@echo "srpm      generate SRPM file"
+	@echo "build     generate srpm and send to build in fedora-copr"
 	@echo "all       clean test doc rpm"
 	@echo "flake8    check Python style based on flake8"
 	@echo
@@ -66,6 +68,18 @@ srpm: tarball
 
 rpm: srpm
 	rpmbuild --define="_topdir $(RPMTOP)" --rebuild $(RPMTOP)/SRPMS/$(SRPM)
+
+build: srpm
+	# run build in copr project depending of your local branch.
+	# you need to have a valid ~/.config/copr file to use copr-cli
+	@echo "building source-code from branch $(BRANCH)"
+ifeq ("$(BRANCH)","master")
+	@echo "running build in https://copr.fedorainfracloud.org/coprs/eduardocerqueira/cloudbitsgo/"
+	@copr-cli --config /home/$(USER)/.config/copr build eduardocerqueira/cloudbitsgo \
+	$(RPMTOP)/SRPMS/$(SRPM)
+else
+	@echo "Only codes from master for this project can be built to fedora-copr"
+endif
 
 # Unit tests
 TEST_SOURCE=tests
