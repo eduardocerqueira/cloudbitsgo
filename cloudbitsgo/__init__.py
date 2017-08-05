@@ -26,12 +26,20 @@ def main():
         # Start execution
         start_time = calctime.start()
         mig_result = None
+        inspect_result = None
         args = get_args()
         log = get_logger(__name__, args.verbose)
         action = Action(args, start_time)
 
+        # example of execution:
+        # TODO
         if args.mig:
             mig_result = action.mig()
+
+        # example of execution:
+        # cloudbitsgo --inspect --src /home/eduardo/tmp/cloudbitsgo/Pictures
+        if args.inspect:
+            inspect_result = action.inspect()
 
         # End execution
         calctime.end()
@@ -43,10 +51,13 @@ def main():
 
     finally:
         if mig_result:
-            # Get summary report
+            # Get migration report
             report = Report(calctime, mig_result, args)
-            report.gen_summary()
-
+            report.gen_mig_summary()
+        if inspect_result:
+            # Get inspection report
+            report = Report(calctime, inspect_result, args)
+            report.gen_inspect_summary()
 
 if __name__ == '__main__':
     main()

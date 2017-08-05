@@ -13,14 +13,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from logging import DEBUG, INFO, getLogger, Formatter, FileHandler
-
+from logging import DEBUG, INFO, getLogger, Formatter, FileHandler, StreamHandler
+import sys
 
 def get_logger(name, verbose=None):
     """Custom logging"""
     logger = getLogger(name)
     logger.propagate = False
-    handler = FileHandler('/tmp/cloudbitsgo.log')
+    file_handler = FileHandler('/tmp/cloudbitsgo.log')
+    console_handler = StreamHandler(sys.stdout)
 
     if verbose:
         console = ("%(asctime)s %(levelname)s "
@@ -31,8 +32,11 @@ def get_logger(name, verbose=None):
     # Set logging formatter
     formatter = Formatter(console, datefmt='%Y-%m-%d %H:%M:%S')
 
-    handler.setFormatter(formatter)
-    logger.handlers[:] = [handler]
+    # Prepare multiple handlers (console and file)
+    file_handler.setFormatter(formatter)
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+    logger.addHandler(file_handler)
 
     if verbose is True:
         logger.setLevel(DEBUG)

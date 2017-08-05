@@ -1,6 +1,6 @@
 .\" Man page generated from reStructuredText.
 .
-.TH "CLOUDBITSGO" "1" "Dec 25, 2016" "0.0.1" "cloudbitsgo"
+.TH "CLOUDBITSGO" "1" "Aug 05, 2017" "0.0.1" "cloudbitsgo"
 .SH NAME
 cloudbitsgo \- cloudbitsgo Documentation
 .
@@ -34,10 +34,10 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 Contents:
 .SH MOTIVATION
 .sp
-I helped a buddy in a file migrate between two servers but it wasn\(aqt just a copy files from A to B! it was critical data from a PRODUCTION server running on [1] AWS so EC2 with a
+I helped a buddy in a file migrate between two servers but it wasn’t just a copy files from A to B! it was critical data from a PRODUCTION server running on [1] AWS so EC2 with a
 large EBS (Elastic Block Storage) and the data needed to be migrated to [2] EFS (Elastic File System).
 .sp
-The PRODUCTION server wasn\(aqt running on HA (High\-Availability) mode was reaching the disk space limit very quick, ah this server was serving a Webserver and hosting an web
+The PRODUCTION server wasn’t running on HA (High\-Availability) mode was reaching the disk space limit very quick, ah this server was serving a Webserver and hosting an web
 application with more than 150k page views per month!
 .sp
 \fBWhy not rsync?\fP
@@ -107,7 +107,7 @@ cloudbitsgo \-\-mig \-\-src /home/eduardo/tmp \-\-dst /home/eduardo/tmp1 \-\-fil
 migrating all files from src to dst and forcing user and group to 1000. note you get the uid and gid at /etc/group
 .INDENT 3.0
 .INDENT 3.5
-sudo cloudbitsgo \-\-mig \-\-src /tmp/origin/Desktop/ \-\-dst /tmp/destination/Desktop/ \-\-uidgid 1000:1000
+sudo cloudbitsgo –mig –src /tmp/origin/Desktop/ –dst /tmp/destination/Desktop/ –uidgid 1000:1000
 .UNINDENT
 .UNINDENT
 .UNINDENT

@@ -35,9 +35,10 @@ def get_args():
     parser = argparse.ArgumentParser(prog='cloudbitsgo')
     required_named = parser.add_argument_group('required arguments')
 
-    required_named.add_argument('--mig', default=True,
+    # Requires src and dst args
+    required_named.add_argument('--mig', default=False,
                                 help="migrate data from src to dst",
-                                required=True,
+                                required=False,
                                 action='store_true')
 
     required_named.add_argument("--src",
@@ -49,8 +50,14 @@ def get_args():
     required_named.add_argument("--dst",
                                 help="destination folder",
                                 type=str,
-                                required=True,
+                                required=False,
                                 action='store')
+
+    # Requires src arg
+    required_named.add_argument('--inspect', default=True,
+                                help="Inspect all files from a given folder",
+                                required=False,
+                                action='store_true')
 
     parser.add_argument("--uidgid",
                         help="set user id and group id to symbolic link, e.g:\

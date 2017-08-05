@@ -107,9 +107,9 @@ class Action(object):
         """Read all data from src folder, it is needed to apply filters and
         for summarize the process at the end of execution."""
         self.is_src()
+        self.log.info('Loading files from %s', self.src)
         dir_size = self.get_dir_size()
         dir_size_converted = self.convert(dir_size)
-        self.log.info('Loading files from %s', self.src)
 
         # SMALL  < 500 MB or 500,000 KB
         # MEDIUM < 100 GB or 104,857,600 KB
@@ -121,24 +121,46 @@ class Action(object):
             self.log.info(MLINE)
 
         file_mig = []
+        _link = []
+        _dir = []
+        _file = []
+
         # read every individual file from src path
         for root, dirs, files in os.walk(self.src):
             for file_name in files:
                 src_full_path = os.path.join(root, file_name)
-                if self.custom_filter(src_full_path):
-                    src_dir = root
+                # apply filters
+                self.custom_filter(src_full_path)
+                src_dir = root
+                # migration --mig
+                if self.dst:
                     dst_dir = root.replace(self.src, self.dst)
                     dst_full_path = os.path.join(dst_dir, file_name)
                     file_mig.append({'src_dir': src_dir,
-                                     'dst_dir': dst_dir,
-                                     'src_full_path': src_full_path,
-                                     'dst_full_path': dst_full_path
-                                     })
+                                 'dst_dir': dst_dir,
+                                 'src_full_path': src_full_path,
+                                 'dst_full_path': dst_full_path
+                                 })
+                # inspection --inspect
+                else:
+                    # count dir, file and link
+                    if os.path.isfile(src_full_path):
+                        _file.append(src_full_path)
+                    if os.path.islink(src_full_path):
+                        _link.append(src_full_path)
+                    if os.path.isdir(src_full_path):
+                        _dir.append(src_full_path)
+
+                    file_mig.append({'src_dir': src_dir,
+                                 'src_full_path': src_full_path
+                                 })
 
         self.log.info('TOTAL of %s files', file_mig.__len__())
         dir_size_formatted = '%s%s' % (dir_size_converted['size'],
                                        dir_size_converted['unit'])
-        return file_mig, dir_size_formatted
+        # save to inspect report
+        rs = {'link': _link, 'dir': _dir, 'file': _file}
+        return file_mig, dir_size_formatted, rs
 
     def set_uidgid(self, file_path, uid=None, gid=None):
         """Set user id and group id for symbolic link
@@ -330,7 +352,7 @@ class Action(object):
             - Delete file from src
             - Create symbolic link from src to dst
         """
-        _files, dir_size = self.read_src()
+        _files, dir_size, rs = self.read_src()
         _total_files = _files.__len__()
         _each_rs = []
 
@@ -344,6 +366,21 @@ class Action(object):
 
         return _result
 
+    def inspect(self):
+        """Inspect a given folder and print:
+            - Total size of this folder
+            - Number of symbolic links
+            - Number of non-symbolic links
+            - Total size of non-symbolic links
+        """
+        _files, dir_size, rs = self.read_src()
+
+        _result = {'total_link:': len(rs['link']),
+                   'total_file': len(rs['file']),
+                   'total_dir': len(rs['dir'])}
+
+        self.log.info(_result)
+        return _result
 
 class CalcTime(object):
     """Calculate elapsed time."""
@@ -384,16 +421,35 @@ class Report(object):
     def __init__(self, calctime, mig_result, args):
         """Constructor """
         self.calc_time = calctime
-        self.total_files = mig_result['total_files']
-        self.dir_size = mig_result['dir_size']
-        # each_rs has file_name, success, error, linked_src_dst
-        # for each individual file migrated
-        self.each_fmig = mig_result['each_fmig']
         self.hostname = socket.gethostname()
         self.args = args
 
-    def gen_summary(self):
-        """Generate summary for execution."""
+        # migration
+        if args.mig:
+            if mig_result['total_files']:
+                self.total_files = mig_result['total_files']
+            else:
+                self.total_files = 0
+            if mig_result['dir_size']:
+                self.dir_size = mig_result['dir_size']
+            else:
+                self.dir_size = 0
+            # each_rs has file_name, success, error, linked_src_dst
+            # for each individual file migrated
+            self.each_fmig = mig_result['each_fmig']
+
+        # inspect
+        if args.inspect:
+            return True
+
+
+    def gen_inspect_summary(self):
+        """Generate inspect summary for execution."""
+        # TODO: implement this report for inspection
+        True
+
+    def gen_mig_summary(self):
+        """Generate migration summary for execution."""
 
         # get total of success and error
         total_success = 0
